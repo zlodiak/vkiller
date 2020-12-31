@@ -1,0 +1,29 @@
+.wrap {
+  width: 50%;
+  margin: 52px auto 32px;
+  background: cyan;
+}
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 0;
+    height: 20px;
+    overflow: hidden;
+    background: lime;
+  }
+
+    .header-inner {
+      width: 50%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+  .nav-link {
+    display: block;
+  }
