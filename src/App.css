@@ -27,3 +27,15 @@
   .nav-link {
     display: block;
   }
+
+.authForms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+  .loginForm {
+    width: 400px;
+  }
