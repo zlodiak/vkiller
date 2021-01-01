@@ -26,15 +26,15 @@ function App() {
 
   function submitLogin() {
     if(!login || !password) { return } 
-    fetch(API_URL + '/user', {
+    fetch(API_URL + '/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({ login, password })
     }).then((res: any) => {
-      res.json().then((v: string) => {
-        console.log('res=====', JSON.parse(v))
+      res.json().then((v: object) => {
+        console.log('res=====', v)
       })
     })
   }
