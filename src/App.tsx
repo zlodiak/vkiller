@@ -8,6 +8,7 @@ import { appStateType } from './redux/store'
 import Login from './components/authorization/Login'
 import Layout from './components/layout'
 
+
 function App(props: any) {
   const [isLogged, setIsLogged] = useState(false)
   useEffect(() => {
@@ -27,5 +28,6 @@ const mapStateToProps = (state: appStateType) => {
     isLogged: state.authReducer.isLogged,
   }
 }
+
 
 export default connect(mapStateToProps, {})(App);

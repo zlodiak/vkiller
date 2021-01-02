@@ -1,11 +1,7 @@
 import React from 'react'
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
 
-import Grid from '@material-ui/core/Grid'
-import Icon from '@material-ui/core/Icon'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-
+import * as MUI from '../sharedDependencies'
 import '../App.css'
 import store, { setLoggedAC } from '../redux/store'
 
@@ -13,6 +9,7 @@ import My from './pages/My'
 import News from './pages/News'
 import Friends from './pages/Friends'
 import Page404 from './pages/Page404'
+
 
 function Layout(props: any) {
   function logout() {
@@ -25,26 +22,26 @@ function Layout(props: any) {
       <header className="header">
         <div className="header-inner">
           <div className="left-icons">
-            <Icon>stars</Icon>
-            <Typography>VKiller</Typography>
+            <MUI.Icon>stars</MUI.Icon>
+            <MUI.Typography>VKiller</MUI.Typography>
           </div>
-          <Button color="default" onClick={ logout }>
+          <MUI.Button color="default" onClick={ logout }>
             Logout
-          </Button>
+          </MUI.Button>
         </div>
       </header>
 
-      <Grid container spacing={ 1 }>
-      <Grid container item xs={ 2 } spacing={ 3 } className="nav">
-        <Grid item>
+      <MUI.Grid container spacing={ 1 }>
+      <MUI.Grid container item xs={ 2 } spacing={ 3 } className="nav">
+        <MUI.Grid item>
         <NavLink to="/" className="nav-link">My</NavLink>
         <NavLink to="/news" className="nav-link">News</NavLink>
         <NavLink to="/friends" className="nav-link">Friends</NavLink>
-        </Grid>
-      </Grid>
+        </MUI.Grid>
+      </MUI.Grid>
 
-      <Grid container item xs={10} spacing={3} className="content">
-        <Grid item>
+      <MUI.Grid container item xs={10} spacing={3} className="content">
+        <MUI.Grid item>
         <Switch>
           <Route exact path='/' render={ () => <My/> }/>
           <Route exact path='/My' render={ () => <My/> }/>
@@ -53,12 +50,13 @@ function Layout(props: any) {
           <Route exact path='/Page404' render={ () => <Page404/> }/>
           <Redirect to="/Page404"/>
         </Switch>
-        </Grid>
-      </Grid>
-      </Grid>
+        </MUI.Grid>
+      </MUI.Grid>
+      </MUI.Grid>
 
     </div>
   )
 }
+
 
 export default Layout
