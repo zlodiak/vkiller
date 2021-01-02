@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid'
@@ -11,8 +11,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 
 import './App.css'
-import { getCookie } from './utils'
-import { userType } from './types'
+import { loginRespType } from './types'
 import { API_URL } from './config'
 
 import My from './components/pages/My'
@@ -22,7 +21,7 @@ import Page404 from './components/pages/Page404'
 
 function App() {
   const [login, setLogin] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState(); 
 
   function submitLogin() {
     if(!login || !password) { return } 
@@ -33,10 +32,17 @@ function App() {
       },
       body: JSON.stringify({ login, password })
     }).then((res: any) => {
-      res.json().then((v: object) => {
-        console.log('res=====', v)
+      res.json().then((loginResp: loginRespType) => {
+        if(loginResp.isLogged === 'True') {
+          document.cookie = `isLogged=True`
+          document.location.reload()
+        }
       })
     })
+  }
+
+  function logout(): void {
+
   }
 
   function authArea() {
@@ -45,8 +51,13 @@ function App() {
 
         <header className="header">
           <div className="header-inner">
-            <Icon>stars</Icon>
-            <Typography>VKiller</Typography>            
+            <div className="left-icons">
+              <Icon>stars</Icon>
+              <Typography>VKiller</Typography>
+            </div>
+            <Button color="default" onClick={ () => logout() }>
+              Logout
+            </Button>            
           </div>
         </header>        
 
@@ -79,7 +90,7 @@ function App() {
 
   function authForms() {
     return (
-      <div className="authForms">
+      <div className="authForms" id="authForms">
         <Card className="loginForm">
           <CardContent>
             <Typography variant="h5" gutterBottom>
@@ -102,7 +113,7 @@ function App() {
     )
   }
 
-  const isLogged = getCookie('isLogged') === '1'
+  const isLogged = false
 
   return (
     <BrowserRouter>
