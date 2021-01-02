@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid'
 import Icon from '@material-ui/core/Icon'
@@ -13,15 +14,21 @@ import TextField from '@material-ui/core/TextField';
 import './App.css'
 import { loginRespType } from './types'
 import { API_URL } from './config'
+import store, { appStateType, setLoggedAC } from './redux/store'
 
 import My from './components/pages/My'
 import News from './components/pages/News'
 import Friends from './components/pages/Friends'
 import Page404 from './components/pages/Page404'
 
-function App() {
+function App(props: any) {
   const [login, setLogin] = useState();
-  const [password, setPassword] = useState(); 
+  const [password, setPassword] = useState()
+  const [isLogged, setIslogged] = useState(false)
+
+  useEffect(() => {
+    setIslogged(props.isLogged)
+  }, [props.isLogged])
 
   function submitLogin() {
     if(!login || !password) { return } 
@@ -34,15 +41,14 @@ function App() {
     }).then((res: any) => {
       res.json().then((loginResp: loginRespType) => {
         if(loginResp.isLogged === 'True') {
-          document.cookie = `isLogged=True`
-          document.location.reload()
+          store.dispatch(setLoggedAC(true));
         }
       })
     })
   }
 
   function logout(): void {
-
+    store.dispatch(setLoggedAC(false));
   }
 
   function authArea() {
@@ -113,8 +119,6 @@ function App() {
     )
   }
 
-  const isLogged = false
-
   return (
     <BrowserRouter>
       { isLogged && authArea() }
@@ -123,4 +127,10 @@ function App() {
   )
 }
 
-export default App
+const mapStateToProps = (state: appStateType) => {
+  return {
+    isLogged: state.authReducer.isLogged,
+  }
+}
+
+export default connect(mapStateToProps, { setLoggedAC })(App);
