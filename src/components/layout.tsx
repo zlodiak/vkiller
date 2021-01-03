@@ -8,6 +8,7 @@ import store, { setLoggedAC } from '../redux/store'
 import My from './pages/My'
 import News from './pages/News'
 import Friends from './pages/Friends'
+import Victims from './pages/Victims'
 import Page404 from './pages/Page404'
 
 
@@ -37,6 +38,7 @@ function Layout(props: any) {
         <NavLink to="/" className="nav-link">My</NavLink>
         <NavLink to="/news" className="nav-link">News</NavLink>
         <NavLink to="/friends" className="nav-link">Friends</NavLink>
+        <NavLink to="/victims" className="nav-link">Victims</NavLink>
         </MUI.Grid>
       </MUI.Grid>
 
@@ -47,6 +49,7 @@ function Layout(props: any) {
           <Route exact path='/My' render={ () => <My/> }/>
           <Route exact path='/News' render={ () => <News/> }/>
           <Route exact path='/Friends' render={ () => <Friends/> }/>
+          <Route exact path='/Victims' render={ () => <Victims/> }/>
           <Route exact path='/Page404' render={ () => <Page404/> }/>
           <Redirect to="/Page404"/>
         </Switch>

@@ -1,31 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import * as MUI from '../../sharedDependencies'
 import '../../App.css'
 import { loginRespType } from '../../types'
-import { API_URL } from '../../config'
+import { apiRequest } from '../../API'
 import store, { setLoggedAC } from '../../redux/store'
 
 
 function Login(props: any) {
-  const [login, setLogin] = useState();
+  const [login, setLogin] = useState()
   const [password, setPassword] = useState()
 
   function submitLogin() {
     if(!login || !password) { return } 
-    fetch(API_URL + '/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({ login, password })
-    }).then((res: any) => {
-      res.json().then((loginResp: loginRespType) => {
-        if(loginResp.isLogged === 'True') {
-          store.dispatch(setLoggedAC(true))
-        }
+    apiRequest('/login', 'POST', { login, password })
+      .then((res: any) => {
+        res.json().then((loginResp: loginRespType) => {
+          if(loginResp.isLogged === 'True') {
+            store.dispatch(setLoggedAC(true))
+          }
+        })
       })
-    })
   }
 
   return (
