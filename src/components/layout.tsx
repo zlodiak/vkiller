@@ -8,7 +8,7 @@ import store, { setLoggedAC } from '../redux/store'
 import My from './pages/My'
 import News from './pages/News'
 import Friends from './pages/Friends'
-import Victims from './pages/Victims'
+import Victims from './pages/victims/Victims'
 import Page404 from './pages/Page404'
 
 

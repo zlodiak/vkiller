@@ -1,0 +1,10 @@
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+  .label:after {
+    content: ':';
+    margin-right: 8px;
+  }
