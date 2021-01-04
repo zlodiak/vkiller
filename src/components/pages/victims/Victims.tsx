@@ -20,7 +20,7 @@ function Victims(props: any) {
   function displayVictims() {
     return (
       props.victims.map((victim: victimType, i: number) => {
-        return <VictimCard key={ i } fields={ victim.fields }/>
+        return <VictimCard key={ i } fields={ victim.fields } pk={ victim.pk }/>
       })
     )
   }

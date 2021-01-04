@@ -1,20 +1,20 @@
 import React from 'react'
+import { useHistory } from "react-router-dom"
 
 import * as MUI from '../../../sharedDependencies'
 import s from './victims.module.css'
 import { prepareFieldsForCard } from '../../../utils'
-import { victimFieldsType } from '../../../types'
 
 
 function VictimCard(props: any) {
+  const history = useHistory()
+
   function openCard(victimId: number) {
-    console.log('----')
-    console.log(victimId)
+    history.push('/victims/' + victimId)
   }
 
   function displayFields() {
     const fields: any = prepareFieldsForCard(props.fields)
-    debugger
     return (
       Object.keys(fields)
       .map((key: string, i: number) => {
@@ -40,7 +40,7 @@ function VictimCard(props: any) {
       </MUI.CardContent>
 
       <MUI.CardActions>
-        <MUI.Button variant="outlined" size="small" onClick={ () => VictimCard(11) }>Open details</MUI.Button>
+        <MUI.Button variant="outlined" size="small" onClick={ () => openCard(props.pk) }>Edit</MUI.Button>
         <MUI.Button variant="outlined" size="small">Toggle Status</MUI.Button>
       </MUI.CardActions>
     </MUI.Card>      

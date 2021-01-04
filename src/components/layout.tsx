@@ -9,6 +9,7 @@ import My from './pages/My'
 import News from './pages/News'
 import Friends from './pages/Friends'
 import Victims from './pages/victims/Victims'
+import Details from './pages/Details'
 import Page404 from './pages/Page404'
 
 
@@ -46,12 +47,13 @@ function Layout(props: any) {
         <MUI.Grid item>
         <Switch>
           <Route exact path='/' render={ () => <My/> }/>
-          <Route exact path='/My' render={ () => <My/> }/>
-          <Route exact path='/News' render={ () => <News/> }/>
-          <Route exact path='/Friends' render={ () => <Friends/> }/>
-          <Route exact path='/Victims' render={ () => <Victims/> }/>
-          <Route exact path='/Page404' render={ () => <Page404/> }/>
-          <Redirect to="/Page404"/>
+          <Route exact path='/my' render={ () => <My/> }/>
+          <Route exact path='/news' render={ () => <News/> }/>
+          <Route exact path='/friends' render={ () => <Friends/> }/>
+          <Route exact path='/victims' render={ () => <Victims/> }/>
+          <Route exact path='/victims/:pk' render={ () => <Details/> }/>
+          <Route exact path='/page404' render={ () => <Page404/> }/>
+          <Redirect to="/page404"/>
         </Switch>
         </MUI.Grid>
       </MUI.Grid>
