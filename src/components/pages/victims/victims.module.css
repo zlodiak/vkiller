@@ -8,6 +8,10 @@
     align-items: center;
   }
 
+    .label:first-letter {
+      text-transform: capitalize;
+    }
+
     .label:after {
       content: ':';
       margin-right: 8px;
