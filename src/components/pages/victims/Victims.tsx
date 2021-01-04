@@ -12,7 +12,6 @@ function Victims(props: any) {
       .then((res: any) => {
         res.json().then((victimsRaw: string) => {
           const victimsProc: victimType[] = JSON.parse(victimsRaw)
-          console.log(typeof victimsProc, victimsProc)
           store.dispatch(setVictimsAC(victimsProc))
         })
       })
@@ -21,18 +20,13 @@ function Victims(props: any) {
   function displayVictims() {
     return (
       props.victims.map((victim: victimType, i: number) => {
-        const info = {
-          firstname: victim.fields.firstname,
-        }
-        const fields = victim.fields
-        return <VictimCard key={ i } info={ info } fields={ fields }/>
+        return <VictimCard key={ i } fields={ victim.fields }/>
       })
     )
   }
 
   return(
     <>
-      Victims comp
       { displayVictims() }
     </>
   )

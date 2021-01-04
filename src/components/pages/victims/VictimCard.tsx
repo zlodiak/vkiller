@@ -2,16 +2,18 @@ import React from 'react'
 
 import * as MUI from '../../../sharedDependencies'
 import s from './victims.module.css'
-import { prepareGenderForCard, prepareCompletedForCard } from '../../../utils'
+import { prepareFieldsForCard } from '../../../utils'
 import { victimFieldsType } from '../../../types'
 
 
 function VictimCard(props: any) {
-  function displayFields() {
-    const fields: any = JSON.parse(JSON.stringify(props.fields))
-    fields.gender = prepareGenderForCard(props.fields.gender)
-    fields.isComplete = prepareCompletedForCard(props.fields.is_complete)
+  function openCard(victimId: number) {
+    console.log('----')
+    console.log(victimId)
+  }
 
+  function displayFields() {
+    const fields: any = prepareFieldsForCard(props.fields)
     return (
       Object.keys(fields)
         .map((key: string, i: number) => {
