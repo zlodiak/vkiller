@@ -1,28 +1,55 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 
+import s from './victims/victims.module.css'
+import * as MUI from '../../sharedDependencies'
 import { appStateType } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 
 
 function Details(props: any) {
-  let details: victimFieldsType
-  const routeParams: any = useParams();
-  console.log(routeParams.pk); 	
+  const routeParams: any = useParams();	
+  const details = props.victims.find((victim: any) => routeParams.pk == victim.pk)
+  console.log('det', details)
+  console.log('props.victims', props.victims)
+  console.log('routeParams.pk', routeParams.pk)
+
+  const [editForm, setEditForm] = useState(details)
+
+  // console.log('editForm', editForm)
 
   useEffect(() => {
-    console.log('====', routeParams.pk, props.victims)
-    details = props.victims.find((victim: any) => {
-      console.log(routeParams.pk, victim.pk, routeParams.pk == victim.pk)
-      return routeParams.pk == victim.pk
-    })
-    console.log('details', details)
+    // console.log('=-=-=-=', props.victim)
+    setEditForm(props.victim)
   }, [])
   
   return(
     <>
-      Details comp
+      <form>
+        <MUI.TextField label="Firstname" value={ editForm && editForm.Firstname }/>
+
+        <MUI.Button variant="contained" color="primary" >
+          Submit
+        </MUI.Button>        
+      </form>
+      
+      {
+        details && Object.keys(details.fields)
+        .map((key: string, i: number) => {
+          if(key === 'id_user') { return }
+          return (
+            <div className={ s.line } key={ i }>
+              <MUI.Typography variant="caption" gutterBottom className={ s.label }>
+                { key.replace('_', ' ') }
+              </MUI.Typography>
+              <MUI.Typography variant="body1" gutterBottom>
+                { details.fields[key] }
+              </MUI.Typography>
+            </div>
+          )
+        }) 
+      }
     </>
   )
 }
