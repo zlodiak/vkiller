@@ -2,7 +2,7 @@
 import { createStore, combineReducers } from 'redux'
 import { victimType } from '../types'
 
-const authReducer = function authReducer(state = { isLogged: false }, action: any) {
+const authReducer = function authReducer(state = { isLogged: true }, action: any) {
   switch(action.type) {
     case 'SET_LOGGED': {
       state = {

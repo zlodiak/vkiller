@@ -24,7 +24,8 @@ function Victims(props: any) {
         const info = {
           firstname: victim.fields.firstname,
         }
-        return <VictimCard key={ i } info={ info }/>
+        const fields = victim.fields
+        return <VictimCard key={ i } info={ info } fields={ fields }/>
       })
     )
   }

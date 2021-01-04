@@ -2,25 +2,43 @@ import React from 'react'
 
 import * as MUI from '../../../sharedDependencies'
 import s from './victims.module.css'
+import { prepareGenderForCard, prepareCompletedForCard } from '../../../utils'
+import { victimFieldsType } from '../../../types'
 
 
 function VictimCard(props: any) {
-  return(
-    <MUI.Card className="victim-card">
-      <MUI.CardContent>
-        <div className={ s.line }>
-          <MUI.Typography variant="caption" gutterBottom className={ s.label }>
-            Firstname
-          </MUI.Typography>
+  function displayFields() {
+    const fields: any = JSON.parse(JSON.stringify(props.fields))
+    fields.gender = prepareGenderForCard(props.fields.gender)
+    fields.isCompleted = prepareCompletedForCard(props.fields.isCompleted)
 
-          <MUI.Typography variant="body1" gutterBottom>
-            { props.info.firstname }
-          </MUI.Typography>          
-        </div>
+    return (
+      Object.keys(fields)
+        .map((key: string, i: number) => {
+          if(key === 'id_user') { return }
+          return (
+            <div className={ s.line } key={ i }>
+              <MUI.Typography variant="caption" gutterBottom className={ s.label }>
+                { key }
+              </MUI.Typography>
+              <MUI.Typography variant="body1" gutterBottom>
+                { fields[key] }
+              </MUI.Typography>           
+            </div>
+          )
+        })
+    )
+  }
+
+  return(
+    <MUI.Card className={ s.card }>
+      <MUI.CardContent>
+        { displayFields() }         
       </MUI.CardContent>
 
       <MUI.CardActions>
-        aaa
+        <MUI.Button variant="outlined" size="small">Open details</MUI.Button>
+        <MUI.Button variant="outlined" size="small">Toggle Status</MUI.Button>
       </MUI.CardActions>
     </MUI.Card>
   )

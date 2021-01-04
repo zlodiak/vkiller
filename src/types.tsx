@@ -8,10 +8,10 @@ export type userType = {
   password: string
 }
 
-type victimFieldsType = {
-  gender: number
+export type victimFieldsType = {
+  gender: number | string
   user_id: number
-  is_complete: number
+  is_complete: number| string
   firstname: string
   lastname: string
   address: string
