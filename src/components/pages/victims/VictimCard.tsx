@@ -10,7 +10,7 @@ function VictimCard(props: any) {
   function displayFields() {
     const fields: any = JSON.parse(JSON.stringify(props.fields))
     fields.gender = prepareGenderForCard(props.fields.gender)
-    fields.isCompleted = prepareCompletedForCard(props.fields.isCompleted)
+    fields.isComplete = prepareCompletedForCard(props.fields.is_complete)
 
     return (
       Object.keys(fields)
