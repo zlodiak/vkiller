@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
 
 import * as MUI from '../sharedDependencies'
 import '../App.css'
-import store, { setLoggedAC } from '../redux/store'
+import store, { setLoggedAC, setVictimsAC } from '../redux/store'
+import { apiRequest } from '../API'
+import { victimType } from '../types'
 
 import My from './pages/My'
 import News from './pages/News'
@@ -14,6 +16,16 @@ import Page404 from './pages/Page404'
 
 
 function Layout(props: any) {
+  useEffect(() => {
+    apiRequest('/victims')
+      .then((res: any) => {
+        res.json().then((victimsRaw: string) => {
+          const victimsProc: victimType[] = JSON.parse(victimsRaw)
+          store.dispatch(setVictimsAC(victimsProc))
+        })
+      })
+  }, []);
+
   function logout() {
     store.dispatch(setLoggedAC(false))
   }
