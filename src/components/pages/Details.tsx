@@ -46,7 +46,7 @@ function Details(props: any) {
       onSubmit={fields => {
         const formData: victimFieldsType = {
           gender: fields.gender,
-          user_id: details.fields.userId,
+          user_id: details.fields.id_user,
           is_complete: fields.isComplete,
           firstname: fields.firstname,
           lastname: fields.lastname,
@@ -56,11 +56,11 @@ function Details(props: any) {
         }
         console.log(formData)
 
-        apiRequest('/victim/' + routeParams.pk, 'POST', formData)
+        apiRequest('/victim', 'POST', { formData: formData, pk: routeParams.pk })
         .then((res: any) => {
-          res.json().then((victimsRaw: string) => {
-            console.log(JSON.parse(victimsRaw))
-          })
+          if(res.ok) {
+            alert('ok')
+          }
         })        
       }}
       render={({ errors, status, touched }) => (
