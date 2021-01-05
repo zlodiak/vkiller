@@ -1,6 +1,6 @@
 
 import { createStore, combineReducers } from 'redux'
-import { victimType } from '../types'
+import { victimType, victimFieldsType } from '../types'
 
 const authReducer = function authReducer(state = { isLogged: true }, action: any) {
   switch(action.type) {
@@ -29,7 +29,25 @@ const victimsReducer = function victimsReducer(state = { victims: [] }, action: 
         victims: action.payload.victims
       };
       break;
-    }            
+    }
+    case 'SET_VICTIM': {
+      const updVictims: victimType[] = state.victims.map((victim: victimType) => {
+        if(victim.pk === +action.payload.pk) {
+          return {
+            model: "victims.victim",
+            pk: +action.payload.pk,
+            fields: action.payload.victim
+          }
+        } else {
+          return victim
+        }
+      })
+      state = {
+        ...state,
+        victims: updVictims as any
+      };
+      break;      
+    }  
     default:
       return state
   }
@@ -38,6 +56,10 @@ const victimsReducer = function victimsReducer(state = { victims: [] }, action: 
 
 export const setVictimsAC = (victims: victimType[]) => {
   return { type: 'SET_VICTIMS', payload: { victims } }
+}
+
+export const setVictimAC = (victim: victimFieldsType, pk: number) => {
+  return { type: 'SET_VICTIM', payload: { victim, pk } }
 }
 
 const rootReducer = combineReducers({

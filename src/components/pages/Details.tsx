@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 
 import s from './victims/victims.module.css'
 import * as MUI from '../../sharedDependencies'
-import { appStateType } from '../../redux/store'
+import store, { appStateType, setVictimAC } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 import { prepareDateForCard } from '../../utils'
 import { apiRequest } from '../../API'
@@ -59,7 +59,7 @@ function Details(props: any) {
         apiRequest('/victim', 'POST', { formData: formData, pk: routeParams.pk })
         .then((res: any) => {
           if(res.ok) {
-            alert('ok')
+            store.dispatch(setVictimAC(formData, routeParams.pk))
           }
         })        
       }}
