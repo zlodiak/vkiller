@@ -16,3 +16,7 @@
       content: ':';
       margin-right: 8px;
     }
+
+.form-group {
+  margin-bottom: 16px;
+}
