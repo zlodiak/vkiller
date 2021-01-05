@@ -9,6 +9,7 @@ import * as MUI from '../../sharedDependencies'
 import { appStateType } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 import { prepareDateForCard } from '../../utils'
+import { apiRequest } from '../../API'
 
 
 function Details(props: any) {
@@ -43,7 +44,24 @@ function Details(props: any) {
           .required('Address is required'),
       })}
       onSubmit={fields => {
-          alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
+        const formData: victimFieldsType = {
+          gender: fields.gender,
+          user_id: details.fields.userId,
+          is_complete: fields.isComplete,
+          firstname: fields.firstname,
+          lastname: fields.lastname,
+          address: fields.address,
+          birthdate: details.fields.birthdate,
+          created_date: details.fields.created_date,
+        }
+        console.log(formData)
+
+        apiRequest('/victim/' + routeParams.pk, 'POST', formData)
+        .then((res: any) => {
+          res.json().then((victimsRaw: string) => {
+            console.log(JSON.parse(victimsRaw))
+          })
+        })        
       }}
       render={({ errors, status, touched }) => (
         <Form>
