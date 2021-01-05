@@ -1,6 +1,10 @@
 
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk';
+import { apiRequest } from '../API';
+
 import { victimType, victimFieldsType } from '../types'
+
 
 const authReducer = function authReducer(state = { isLogged: true }, action: any) {
   switch(action.type) {
@@ -62,18 +66,27 @@ export const setVictimAC = (victim: victimFieldsType, pk: number) => {
   return { type: 'SET_VICTIM', payload: { victim, pk } }
 }
 
+export const setVictimThunk = (formData: victimFieldsType, pk: number, cb: any) => {
+  return async (dispatch: any) => {
+      const result = await apiRequest('/victim', 'POST', { formData, pk })
+      if(result.ok) {
+        dispatch(setVictimAC(formData, pk))
+        cb()
+      }
+  }
+}
+
 const rootReducer = combineReducers({
   authReducer,
   victimsReducer,
 });
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 type rootReducerType = typeof rootReducer;
 export type appStateType = ReturnType<rootReducerType>;
 
 export default store
-
 
 
 store.subscribe(() => {

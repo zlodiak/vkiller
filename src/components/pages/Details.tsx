@@ -3,19 +3,20 @@ import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useHistory } from "react-router-dom"
 
 import s from './victims/victims.module.css'
 import * as MUI from '../../sharedDependencies'
-import store, { appStateType, setVictimAC } from '../../redux/store'
+import { appStateType } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 import { prepareDateForCard } from '../../utils'
-import { apiRequest } from '../../API'
+import { setVictimThunk } from '../../redux/store'
 
 
 function Details(props: any) {
   const routeParams: any = useParams();	
   const details = props.victims.find((victim: any) => routeParams.pk == victim.pk)
-  console.log(details)
+  const history = useHistory()
  
   return(
     <Formik
@@ -54,14 +55,7 @@ function Details(props: any) {
           birthdate: details.fields.birthdate,
           created_date: details.fields.created_date,
         }
-        console.log(formData)
-
-        apiRequest('/victim', 'POST', { formData: formData, pk: routeParams.pk })
-        .then((res: any) => {
-          if(res.ok) {
-            store.dispatch(setVictimAC(formData, routeParams.pk))
-          }
-        })        
+        props.setVictimThunk(formData, routeParams.pk, () => { history.push('/victims') })      
       }}
       render={({ errors, status, touched }) => (
         <Form>
@@ -120,4 +114,4 @@ const mapStateToProps = (state: appStateType) => {
 }
 
 
-export default connect(mapStateToProps, {})(Details);
+export default connect(mapStateToProps, { setVictimThunk })(Details);
