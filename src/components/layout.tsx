@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import * as MUI from '../sharedDependencies'
 import '../App.css'
-import store, { setLoggedAC, setVictimsAC, appStateType } from '../redux/store'
+import store, { setLoggedAC, setVictimsAC, appStateType, setSnackAC } from '../redux/store'
 import { apiRequest } from '../API'
 import { victimType } from '../types'
 
@@ -78,14 +78,11 @@ function Layout(props: any) {
           horizontal: 'left',
         }}
         open={ props.isShowSnackbar }
-        autoHideDuration={ 3000 }
-        message="Note archived"
+        autoHideDuration={ 2000 }
+        message={ props.snackMessage }
         action={
           <React.Fragment>
-            <MUI.Button color="secondary" size="small">
-              UNDO
-            </MUI.Button>
-            <MUI.IconButton size="small" aria-label="close" color="inherit">
+            <MUI.IconButton size="small" aria-label="close" color="inherit" onClick={ () => store.dispatch(setSnackAC(false)) }>
               <MUI.CloseIcon fontSize="small" />
             </MUI.IconButton>
           </React.Fragment>
@@ -99,6 +96,7 @@ function Layout(props: any) {
 const mapStateToProps = (state: appStateType) => {
   return {
     isShowSnackbar: state.snackReducer.isShowSnackbar,
+    snackMessage: state.snackReducer.message,
   }
 }
 

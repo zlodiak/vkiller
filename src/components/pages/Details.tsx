@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom"
 
 import s from './victims/victims.module.css'
 import * as MUI from '../../sharedDependencies'
-import store, { appStateType, setSnackAC } from '../../redux/store'
+import store, { appStateType, setSnackAC, setSnackMessageAC } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 import { prepareDateForCard } from '../../utils'
 import { setVictimThunk } from '../../redux/store'
@@ -57,6 +57,7 @@ function Details(props: any) {
           created_date: details.fields.created_date,
         }
         props.setVictimThunk(formData, routeParams.pk, () => { 
+          store.dispatch(setSnackMessageAC(`Edit card of ${details.fields.firstname} successful`))
           store.dispatch(setSnackAC(true))
           history.push('/victims') 
         })      

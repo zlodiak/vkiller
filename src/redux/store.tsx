@@ -6,7 +6,7 @@ import { apiRequest } from '../API';
 import { victimType, victimFieldsType } from '../types'
 
 
-const snackReducer = function snackReducer(state = { isShowSnackbar: false }, action: any) {
+const snackReducer = function snackReducer(state = { isShowSnackbar: false, message: '' }, action: any) {
   switch(action.type) {
     case 'SET_SHOW': {
       state = {
@@ -14,7 +14,14 @@ const snackReducer = function snackReducer(state = { isShowSnackbar: false }, ac
         isShowSnackbar: action.payload.isShowSnackbar
       };
       break;
-    }            
+    }
+    case 'SET_MESSAGE': {
+      state = {
+        ...state,
+        message: action.payload.message
+      };
+      break;
+    }
     default:
       return state
   }
@@ -23,6 +30,10 @@ const snackReducer = function snackReducer(state = { isShowSnackbar: false }, ac
 
 export const setSnackAC = (isShowSnackbar: boolean) => {
   return { type: 'SET_SHOW', payload: { isShowSnackbar } }
+}
+
+export const setSnackMessageAC = (message: string) => {
+  return { type: 'SET_MESSAGE', payload: { message } }
 }
 
 const authReducer = function authReducer(state = { isLogged: true }, action: any) {
