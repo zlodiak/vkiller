@@ -1,6 +1,5 @@
 import { victimType, victimFieldsType } from '../types'
 import { apiRequest } from '../API';
-import store from './store'
 
 
 export const setSnackAC = (isShowSnackbar: boolean) => {
@@ -40,9 +39,22 @@ export const setSnackAC = (isShowSnackbar: boolean) => {
             res.json().then((victimsRaw: string) => {
               const victimsProc: victimType[] = JSON.parse(victimsRaw)
               if(victimsProc.length) {
-                store.dispatch(setVictimsAC(victimsProc))
+                dispatch(setVictimsAC(victimsProc))
               }
             })
           })
+    }
+  }
+
+  export const toggleVictimStatusAC = (pk: number) => {
+    return { type: 'TOGGLE_STATUS', payload: { pk } }
+  }
+
+  export const toggleVictimStatusThunk = (pk: number) => {
+    return async (dispatch: any) => {
+        const result = await apiRequest('/victim_toggle_status', 'POST', { pk })
+        if(result.ok) {
+          dispatch(toggleVictimStatusAC(pk))
+        }
     }
   }

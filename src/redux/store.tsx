@@ -1,9 +1,7 @@
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk';
-
 import { snackReducer, authReducer, victimsReducer } from './reducers'
-
 
 const rootReducer = combineReducers({
   authReducer,

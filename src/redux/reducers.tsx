@@ -65,6 +65,26 @@ export const victimsReducer = function victimsReducer(state = { victims: [] }, a
       };
       break;      
     }  
+
+    case 'TOGGLE_STATUS': {
+      const updVictims: victimType[] = state.victims.map((victim: victimType) => {
+        if(victim.pk === +action.payload.pk) {
+          return {
+            model: "victims.victim",
+            pk: +action.payload.pk,
+            fields: { ...victim.fields, is_complete: victim.fields.is_complete === 0 ? 1 : 0 }
+          }
+        } else {
+          return victim
+        }
+      })
+      state = {
+        ...state,
+        victims: updVictims as any
+      };
+      break;      
+    }  
+
     default:
       return state
   }

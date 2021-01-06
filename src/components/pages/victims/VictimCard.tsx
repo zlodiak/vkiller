@@ -1,9 +1,11 @@
 import React from 'react'
 import { useHistory } from "react-router-dom"
+import { connect } from 'react-redux'
 
 import * as MUI from '../../../sharedDependencies'
 import s from './victims.module.css'
 import { prepareFieldsForCard } from '../../../utils'
+import { toggleVictimStatusThunk } from '../../../redux/actions'
 
 
 function VictimCard(props: any) {
@@ -11,6 +13,11 @@ function VictimCard(props: any) {
 
   function openCard(victimId: number) {
     history.push('/victims/' + victimId)
+  }
+
+  function toggleStatus(pk: number) {
+    console.log('toggle', pk)
+    props.toggleVictimStatusThunk(pk)
   }
 
   function displayFields() {
@@ -41,11 +48,11 @@ function VictimCard(props: any) {
 
       <MUI.CardActions>
         <MUI.Button variant="outlined" size="small" onClick={ () => openCard(props.pk) }>Edit</MUI.Button>
-        <MUI.Button variant="outlined" size="small">Toggle Status</MUI.Button>
+        <MUI.Button variant="outlined" size="small" onClick={ () => toggleStatus(props.pk) }>Toggle Status</MUI.Button>
       </MUI.CardActions>
     </MUI.Card>      
   )
 }
 
 
-export default VictimCard
+export default connect(null, { toggleVictimStatusThunk })(VictimCard)
