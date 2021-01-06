@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom"
 
 import s from './victims/victims.module.css'
 import * as MUI from '../../sharedDependencies'
-import { appStateType } from '../../redux/store'
+import store, { appStateType, setSnackAC } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 import { prepareDateForCard } from '../../utils'
 import { setVictimThunk } from '../../redux/store'
@@ -56,7 +56,10 @@ function Details(props: any) {
           birthdate: details.fields.birthdate,
           created_date: details.fields.created_date,
         }
-        props.setVictimThunk(formData, routeParams.pk, () => { history.push('/victims') })      
+        props.setVictimThunk(formData, routeParams.pk, () => { 
+          store.dispatch(setSnackAC(true))
+          history.push('/victims') 
+        })      
       }}
       render={({ errors, status, touched }) => (
         <Form>
@@ -115,4 +118,4 @@ const mapStateToProps = (state: appStateType) => {
 }
 
 
-export default connect(mapStateToProps, { setVictimThunk })(Details);
+export default connect(mapStateToProps, { setVictimThunk })(Details)

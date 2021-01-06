@@ -6,6 +6,25 @@ import { apiRequest } from '../API';
 import { victimType, victimFieldsType } from '../types'
 
 
+const snackReducer = function snackReducer(state = { isShowSnackbar: false }, action: any) {
+  switch(action.type) {
+    case 'SET_SHOW': {
+      state = {
+        ...state,
+        isShowSnackbar: action.payload.isShowSnackbar
+      };
+      break;
+    }            
+    default:
+      return state
+  }
+  return state
+}
+
+export const setSnackAC = (isShowSnackbar: boolean) => {
+  return { type: 'SET_SHOW', payload: { isShowSnackbar } }
+}
+
 const authReducer = function authReducer(state = { isLogged: true }, action: any) {
   switch(action.type) {
     case 'SET_LOGGED': {
@@ -79,6 +98,7 @@ export const setVictimThunk = (formData: victimFieldsType, pk: number, cb: any) 
 const rootReducer = combineReducers({
   authReducer,
   victimsReducer,
+  snackReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

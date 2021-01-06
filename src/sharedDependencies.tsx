@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Icon from '@material-ui/core/Icon'
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
 
 export {
   Typography,
@@ -16,4 +19,7 @@ export {
   TextField,
   Grid,
   Icon,
+  Snackbar,
+  IconButton,
+  CloseIcon,
 }

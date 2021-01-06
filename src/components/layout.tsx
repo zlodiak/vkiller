@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import * as MUI from '../sharedDependencies'
 import '../App.css'
-import store, { setLoggedAC, setVictimsAC } from '../redux/store'
+import store, { setLoggedAC, setVictimsAC, appStateType } from '../redux/store'
 import { apiRequest } from '../API'
 import { victimType } from '../types'
 
@@ -71,9 +72,35 @@ function Layout(props: any) {
       </MUI.Grid>
       </MUI.Grid>
 
+      <MUI.Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={ props.isShowSnackbar }
+        autoHideDuration={ 3000 }
+        message="Note archived"
+        action={
+          <React.Fragment>
+            <MUI.Button color="secondary" size="small">
+              UNDO
+            </MUI.Button>
+            <MUI.IconButton size="small" aria-label="close" color="inherit">
+              <MUI.CloseIcon fontSize="small" />
+            </MUI.IconButton>
+          </React.Fragment>
+        }
+      />      
+
     </div>
   )
 }
 
+const mapStateToProps = (state: appStateType) => {
+  return {
+    isShowSnackbar: state.snackReducer.isShowSnackbar,
+  }
+}
 
-export default Layout
+
+export default connect(mapStateToProps, {})(Layout)
