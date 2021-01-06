@@ -1,8 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { connect } from 'react-redux';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { connect } from 'react-redux'
+import { Formik, Field, Form, ErrorMessage } from 'formik'
+import { TextField } from 'formik-material-ui'
+import * as Yup from 'yup'
 import { useHistory } from "react-router-dom"
 
 import s from './victims/victims.module.css'
@@ -76,12 +77,12 @@ function Details(props: any) {
           </div>
 
           <div className={ s['form-group'] }>
-            <Field name="firstname" type="text" className={'form-control' + (errors.firstname && touched.firstname ? ' is-invalid' : '')} />
+            <Field name="firstname" type="text" component={TextField} className={'form-control' + (errors.firstname && touched.firstname ? ' is-invalid' : '')} />
             <ErrorMessage name="firstname" component="div" className="invalid-feedback" />
           </div>
 
           <div className={ s['form-group'] }>
-            <Field name="lastname" type="text" className={'form-control' + (errors.lastname && touched.lastname ? ' is-invalid' : '')} />
+            <Field name="lastname" type="text" component={TextField} className={'form-control' + (errors.lastname && touched.lastname ? ' is-invalid' : '')} />
             <ErrorMessage name="lastname" component="div" className="invalid-feedback" />
           </div>
 
@@ -91,11 +92,11 @@ function Details(props: any) {
           </div>
 
           <div className={ s['form-group'] }>
-            <Field name="birthDate" type="text" disabled={ true }/>
+            <Field name="birthDate" type="text" disabled={ true } component={TextField}/>
           </div>
 
           <div className={ s['form-group'] }>
-            <Field name="createdDate" type="text" disabled={ true }/>
+            <Field name="createdDate" type="text" disabled={ true } component={TextField}/>
           </div>
 
           <div className={ s['form-group'] }>
