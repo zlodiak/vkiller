@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 
 import * as MUI from '../sharedDependencies'
 import '../App.css'
-import store, { setLoggedAC, setVictimsAC, appStateType, setSnackAC } from '../redux/store'
+import store, { setLoggedAC, setVictimsAC } from '../redux/store'
 import { apiRequest } from '../API'
 import { victimType } from '../types'
 
@@ -14,6 +13,7 @@ import Friends from './pages/Friends'
 import Victims from './pages/victims/Victims'
 import Details from './pages/Details'
 import Page404 from './pages/Page404'
+import Snackbar from './blocks/Snackbar'
 
 
 function Layout(props: any) {
@@ -72,33 +72,13 @@ function Layout(props: any) {
       </MUI.Grid>
       </MUI.Grid>
 
-      <MUI.Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={ props.isShowSnackbar }
-        autoHideDuration={ 2000 }
-        message={ props.snackMessage }
-        action={
-          <React.Fragment>
-            <MUI.IconButton size="small" aria-label="close" color="inherit" onClick={ () => store.dispatch(setSnackAC(false)) }>
-              <MUI.CloseIcon fontSize="small" />
-            </MUI.IconButton>
-          </React.Fragment>
-        }
-      />      
+      <Snackbar/>
 
     </div>
   )
 }
 
-const mapStateToProps = (state: appStateType) => {
-  return {
-    isShowSnackbar: state.snackReducer.isShowSnackbar,
-    snackMessage: state.snackReducer.message,
-  }
-}
 
 
-export default connect(mapStateToProps, {})(Layout)
+
+export default Layout
