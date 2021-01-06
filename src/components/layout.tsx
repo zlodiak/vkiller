@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import * as MUI from '../sharedDependencies'
 import '../App.css'
-import store, { setLoggedAC, setVictimsAC } from '../redux/store'
-import { apiRequest } from '../API'
-import { victimType } from '../types'
+import { getVictimsThunk } from '../redux/store'
 
 import My from './pages/My'
 import News from './pages/News'
@@ -14,37 +13,19 @@ import Victims from './pages/victims/Victims'
 import Details from './pages/Details'
 import Page404 from './pages/Page404'
 import Snackbar from './blocks/Snackbar'
+import Header from './blocks/Header'
 
 
 function Layout(props: any) {
   useEffect(() => {
-    apiRequest('/victims')
-      .then((res: any) => {
-        res.json().then((victimsRaw: string) => {
-          const victimsProc: victimType[] = JSON.parse(victimsRaw)
-          store.dispatch(setVictimsAC(victimsProc))
-        })
-      })
+    props.getVictimsThunk()
   }, []);
-
-  function logout() {
-    store.dispatch(setLoggedAC(false))
-  }
 
   return (
     <div className="wrap">
 
-      <header className="header">
-        <div className="header-inner">
-          <div className="left-icons">
-            <MUI.Icon>stars</MUI.Icon>
-            <MUI.Typography>VKiller</MUI.Typography>
-          </div>
-          <MUI.Button color="default" onClick={ logout }>
-            Logout
-          </MUI.Button>
-        </div>
-      </header>
+      <Snackbar/>
+      <Header/>
 
       <MUI.Grid container spacing={ 1 }>
       <MUI.Grid container item xs={ 2 } spacing={ 3 } className="nav">
@@ -56,7 +37,7 @@ function Layout(props: any) {
         </MUI.Grid>
       </MUI.Grid>
 
-      <MUI.Grid container item xs={10} spacing={3} className="content">
+      <MUI.Grid container item xs={ 10 } spacing={ 3 } className="content">
         <MUI.Grid item>
         <Switch>
           <Route exact path='/' render={ () => <My/> }/>
@@ -72,13 +53,10 @@ function Layout(props: any) {
       </MUI.Grid>
       </MUI.Grid>
 
-      <Snackbar/>
-
     </div>
   )
 }
 
 
+export default connect(null, { getVictimsThunk })(Layout)
 
-
-export default Layout

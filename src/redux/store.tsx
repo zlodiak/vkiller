@@ -106,6 +106,20 @@ export const setVictimThunk = (formData: victimFieldsType, pk: number, cb: any) 
   }
 }
 
+export const getVictimsThunk = () => {
+  return async (dispatch: any) => {
+      apiRequest('/victims')
+        .then((res: any) => {
+          res.json().then((victimsRaw: string) => {
+            const victimsProc: victimType[] = JSON.parse(victimsRaw)
+            if(victimsProc.length) {
+              store.dispatch(setVictimsAC(victimsProc))
+            }
+          })
+        })
+  }
+}
+
 const rootReducer = combineReducers({
   authReducer,
   victimsReducer,
