@@ -1,6 +1,7 @@
 import React from 'react'
 
-import store, { setLoggedAC } from '../../redux/store'
+import { setLoggedAC } from '../../redux/actions'
+import store from '../../redux/store'
 import * as MUI from '../../sharedDependencies'
 
 

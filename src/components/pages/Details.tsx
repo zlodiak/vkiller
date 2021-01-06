@@ -7,11 +7,10 @@ import * as Yup from 'yup'
 import { useHistory } from "react-router-dom"
 
 import s from './victims/victims.module.css'
-import * as MUI from '../../sharedDependencies'
-import store, { appStateType, setSnackAC, setSnackMessageAC } from '../../redux/store'
+import store, { appStateType } from '../../redux/store'
 import { victimFieldsType } from '../../types'
 import { prepareDateForCard } from '../../utils'
-import { setVictimThunk } from '../../redux/store'
+import { setVictimThunk, setSnackAC, setSnackMessageAC } from '../../redux/actions'
 
 
 function Details(props: any) {

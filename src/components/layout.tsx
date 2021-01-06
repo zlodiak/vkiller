@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import * as MUI from '../sharedDependencies'
 import '../App.css'
-import { getVictimsThunk } from '../redux/store'
+import { getVictimsThunk } from '../redux/actions'
 
 import My from './pages/My'
 import News from './pages/News'

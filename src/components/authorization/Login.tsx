@@ -4,7 +4,8 @@ import * as MUI from '../../sharedDependencies'
 import '../../App.css'
 import { loginRespType } from '../../types'
 import { apiRequest } from '../../API'
-import store, { setLoggedAC } from '../../redux/store'
+import { setLoggedAC } from '../../redux/actions'
+import store from '../../redux/store'
 
 
 function Login(props: any) {

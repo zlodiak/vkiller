@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import * as MUI from '../../sharedDependencies'
-import store, { appStateType, setSnackAC } from '../../redux/store'
+import { setSnackAC } from '../../redux/actions'
+import store, { appStateType } from '../../redux/store'
 
 
 function Snackbar(props: any) {
